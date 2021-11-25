@@ -1,0 +1,159 @@
+body{
+	margin: 0 3%;
+}
+.bold{
+	font-weight: bold;
+}
+.centre{
+	text-align: center;
+}
+.top{
+	margin-top: 5px;
+}
+.cache{
+	display: none;
+}
+h4{
+	margin-top: 100px;
+}
+img.article{
+	height: 300px;
+	display: inline;
+}
+img.recherche{
+	height: 120px;
+}
+.img{
+	width:	auto;
+	margin: 0 auto;
+}
+.infos{
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+.bandeauPrix{
+	border: 1px solid black;
+	border-radius: 10px;
+}
+.contenu{
+	width: 70%;
+	margin-top: 10px;
+	float:right;
+}
+.bandeauPrix h4, .bandeauPrix p{
+	margin: 0;
+	padding: 10px;
+}
+.bandeauPrix input.submit{
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 5px;
+	color: white;
+	background-color: #363636;
+}
+.bandeauPrix input.submit:hover{
+	background-color: white;
+	color: black;
+	text-decoration: none;
+	box-shadow: 0 0 8px gray;
+}
+.bandeauPrix .espace{
+	text-align: center;
+	height: 20px;
+}
+form .submit{
+	margin-top: 10px;
+	text-align: center;
+}
+select{
+	margin-left: 10px;
+}
+div.submit{
+	text-align: center;
+}
+div.article{
+	width: 100%;
+	margin-left: 0px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+
+	z-index: 1;
+	height: 120px;
+}
+div.article .promotion{
+	font-size: 36px;
+	display: table;
+}
+div.article .promotion p{
+	display: table-cell;
+	vertical-align: middle;
+	font-weight: bold;
+}
+div.article .pourcentage{
+	display: block;
+	height: 60px;
+	width: 90%;
+	margin-top: -28px;
+	border: 3px grey solid;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px grey;
+}
+.texteBarre{
+	text-decoration:line-through;
+}
+a.contenu{
+	display: contents;
+	padding: 0;
+	margin: 0;
+	border: 1px solid black;
+	color: black;
+}
+a.contenu:hover{
+	text-decoration: none;
+}
+div.article .description{
+	font-size: 20px;
+}
+div.article .prix{
+	font-size: 22px;
+	display: table;
+	height: 120px;
+	vertical-align: middle;
+}
+div.article .prix p{
+	display: table-cell;
+	vertical-align: middle;
+}
+.like{
+	color: red;
+}
+div.article a.like{
+	font-size: 30px;
+	margin-left: 20px;
+}
+a.contenu{
+	display: contents;
+	padding: 0;
+	margin: 0;
+	border: 1px solid black;
+	color: black;
+}
+.travaux{
+	border: 1px solid black;
+}
+
+.account{
+	margin: 100px auto;
+	width: 70%;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 0 0 10px grey;
+}
+
+.separation{
+	border-right: 1px solid black;
+	height: 100px;
+	margin: auto;
+}
+

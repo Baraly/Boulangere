@@ -1,0 +1,104 @@
+nav{
+	position: fixed;
+	width: 94%;
+	z-index: 10;
+}
+nav div{
+	text-align: center;
+	height: 50px;
+	font-size: 18px;
+}
+nav div p {
+	margin-bottom: 0;
+}
+nav div.col-sm-2{
+	padding: 0 0;
+}
+nav div div.barre{
+	border-left: 1px solid lightgray;
+	height: 30px;
+	margin: auto 0;
+}
+nav div.barre p{
+	margin-top:  -10px;
+}
+nav div p a i{
+	font-size: 21px;
+	margin-left: 5px;
+	vertical-align:middle;
+	margin-top: -4px;
+}
+nav div p a i.searching{
+	margin-left: 0px;
+	font-size: 25px;
+}
+nav div p a,nav div p{
+	vertical-align:middle;
+	line-height: 47px;
+	color: white;
+}
+nav div,nav .row{
+	height: 50px;
+}
+nav div.row{
+	border-radius: 10px;
+	background-color: #363636;
+	box-shadow: 0 10px 20px white;
+}
+nav a:hover{
+	text-decoration: none;
+}
+nav a.animation:hover{
+	background-color: white;
+	color: black;
+	padding: 2px 5px;
+	border-radius: 5px;
+}
+div.espace{
+	height: 64px;
+}
+div.cacherText{
+	height: 5px;
+	margin: 0 0;
+	background-color: white;
+}
+#searchingBox{
+	display: none;
+	position: fixed;
+	background-color: #363636;
+	padding: 16px 10px;
+	color: white;
+	border-radius: 10px;
+	font-size: 18px;
+	margin-top: 12px;
+	width: 400px;
+	right: 1.5%;
+	box-shadow: 0 10px 20px white;
+	z-index: 9;
+}
+#searchingBox label{
+	display: block;
+	float: left;
+	width: 310px;
+	height: 28px;
+	margin-bottom: 0;
+	padding: 0;
+}
+#searchingBox form, #searchingBox input.recherche{
+	height: 28px;
+}
+#searchingBox input.recherche{
+	margin-left: 4px;
+	width: 204px;
+}
+#searchingBox input.envoyer{
+	float: right;
+	width: 32px;
+	height: 28px;
+	margin-right: 10px;
+	background-color: lightgray;
+	border-radius: 10px;
+	background-image: url(../../donnees/img/bx-send.svg);
+}
+
+
