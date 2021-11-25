@@ -17,6 +17,7 @@
                 <label>Password : <input type="password" name="password"/></label>
                 <input type="submit" class="cache"/>
             </form>
+            <span class="separation"></span>
         </div>
         <div class="col-sm-6 centre">
             <h4 class="top">Inscription</h4>
