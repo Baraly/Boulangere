@@ -4,6 +4,7 @@
     <?php include_once("head/head.php"); ?>
     <link rel="stylesheet" href="style/styleNav.css">
     <link rel="stylesheet" href="style/mainStyle.css">
+    <title>Mon compte</title>
     <script src="nav/nav.js"></script>
 </head>
 <body>
