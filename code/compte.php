@@ -4,6 +4,7 @@
     <?php include_once("head/head.php"); ?>
     <link rel="stylesheet" href="style/styleNav.css">
     <link rel="stylesheet" href="style/mainStyle.css">
+    <title>Mon compte</title>
     <script src="nav/nav.js"></script>
 </head>
 <body>
@@ -17,6 +18,7 @@
                 <label>Password : <input type="password" name="password"/></label>
                 <input type="submit" class="cache"/>
             </form>
+            <span class="separation"></span>
         </div>
         <div class="col-sm-6 centre">
             <h4 class="top">Inscription</h4>
