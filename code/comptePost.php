@@ -38,7 +38,7 @@ include_once("bdd.php");
         header("location: compte.php");
     }
     else if(isset($_GET['renvoieEmail'])){
-        $request = $bdd->query("SELECT email, vkey FROM Client WHERE email=".$_SESSION['email']);
+        $request = $bdd->query("SELECT email, vkey FROM Client WHERE email='".$_SESSION['email']."'");
         $donnees = $request->fetch();
         envoyerMailValidation($_SESSION['email'], $donnees['vkey']);
         header("location: compte.php");
