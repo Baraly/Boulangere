@@ -41,8 +41,8 @@
                 <?php
             }
         }
-        if(!empty($_SESSION['email'])){
-            $request = $bdd->query("SELECT email, compteVerifie FROM Clients WHERE email=".$_SESSION['email']);
+        else if(!empty($_SESSION['email'])){
+            $request = $bdd->query("SELECT email, compteVerifie FROM Clients WHERE email='".$_SESSION['email']."'");
             $donnees = $request->fetch();
             if($donnees['email'] == $_SESSION['email'] && $donnees['compteVerifie'] == 0){
                 ?>
@@ -61,6 +61,7 @@
             }
         }
         else{
+            session_destroy();
             ?>
             <h2>Mon compte</h2>
             <div class="row account">
