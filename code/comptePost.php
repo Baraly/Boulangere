@@ -46,7 +46,7 @@ include_once("bdd.php");
 
     function envoyerMailValidation($email, $vkey){
         $subject = "Email de vérification";
-        $message = "<h3>Afin de pouvoir continuer vos achats sur notre site, veuilliez <a href='http://localhost:8888/ProjetFac/code/verify.php?email=$email&vkey=$vkey'>valider votre compte</a></h3>";
+        $message = "<h3>Afin de pouvoir continuer vos achats sur notre site, veuilliez <a href='http://Baraly.fr/code/verify.php?email=$email&vkey=$vkey'>valider votre compte</a></h3>";
         $headers = "From: NePasRepondre@baraly.fr\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type:text/html; charset='UTF-8'\r\n";
