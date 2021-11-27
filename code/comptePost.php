@@ -29,17 +29,14 @@
             'motDePasse' => $password,
             'vkey' => $verifiedkey));
 
-        $to =  $_GET['email'];
         $subject = "Email de vérification";
-        $message = "<a href='http://localhost:8888/ProjetFac/code/verify.php?vkey=$verifiedkey'>Valider mon compte</a>";
+        $message = "<h3>Afin de pouvoir continuer vos achats sur notre site, veuilliez <a href='http://localhost:8888/ProjetFac/code/verify.php?vkey=$verifiedkey'>Valider votre compte</a></h3>";
         $headers = "From: baptiste.bronsin@outlook.com\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+        $headers .= "Content-Type:text/html; charset='UTF-8'\r\n";
 
-        if(mail($to, $subject, $message))
-            echo "<h3>L'email a bien été envoyé !</h3>";
-        else
-            echo "<h3>L'email n'a pas été envoyé !</h3>";
+        mail($_GET['email'], $subject, $message, $headers);
+        header("location: compte.php?envoieMail");
     }
 
 ?>
