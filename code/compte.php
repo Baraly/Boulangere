@@ -19,6 +19,8 @@
             $error = "<h3>Veuilliez vérifier que les deux mots de passes soient bien les mêmes.</h3>";
         if(isset($_GET['error']) && $_GET['error'] == "email")
             $error = "<h3>Cette adresse email est déjà utilisée.</h3>";
+        if(isset($_GET['error']) && $_GET['error'] == "connexion")
+            $error = "<h3>Votre adresse email ou votre mot de passe est incorrect</h3>";
 
         if(isset($_GET['inscription'])){
             $request = $bdd->query("SELECT email FROM Clients");
@@ -56,7 +58,7 @@
             else{
                 ?>
                 <h2>Mon compte</h2>
-                <h3>Bonjour <?= $_SESSION['prenom'] ?></h3>
+                <h5>Bonjour <?= $_SESSION['prenom'] ?></h5>
                 <?php
             }
         }

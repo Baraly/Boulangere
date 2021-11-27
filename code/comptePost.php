@@ -4,8 +4,17 @@ session_start();
 
 include_once("bdd.php");
 
+    // Lors de la connexion
     if(isset($_GET['connexion'])){
-
+        $request = $bdd->query("SELECT email, motDePasse FROM Clients WHERE email='".$_POST['email']."'");
+        $donnees = $request->fetch();
+        if($donnees['motDePasse'] == $_POST['password']){
+            $_SESSION['email'] = $_GET['email'];
+            $_SESSION['prenom'] = $_GET['prenom'];
+        }
+        else{
+            header("location: compte.php?error=connexion");
+        }
     }
 
     // Lors de l'inscription
