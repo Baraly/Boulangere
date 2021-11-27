@@ -44,7 +44,7 @@ include_once("bdd.php");
         $_SESSION['email'] = $_GET['email'];
         $_SESSION['prenom'] = $_GET['prenom'];
 
-        envoyerMailValidation($_SESSION['prenom'], $_SESSION['email'], $donnees['vkey']);
+        envoyerMailValidation($_SESSION['prenom'], $_SESSION['email'], $verifiedkey);
         header("location: compte.php");
     }
     else if(isset($_GET['renvoieEmail'])){
