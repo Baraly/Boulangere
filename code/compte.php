@@ -11,16 +11,18 @@
     <?php include_once("nav/nav.php"); ?>
     <h2>Mon compte</h2>
     <div class="row account">
-        <div class="col-sm-6 centre">
+        <div class="col-sm-5 centre">
             <h4 class="top">Connexion</h4>
             <form action="comptePost.php?connexion" method="post">
                 <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/></label><br>
                 <label>Password : <input type="password" name="password"/></label>
                 <input type="submit" class="cache"/>
             </form>
+        </div>
+        <div class="col-sm-2">
             <span class="separation"></span>
         </div>
-        <div class="col-sm-6 centre">
+        <div class="col-sm-5 centre">
             <h4 class="top">Inscription</h4>
             <form action="comptePost.php?inscription" method="post">
                 <label>Nom : <input type="text" name="firstname"/></label><br>
