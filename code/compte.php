@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -12,13 +13,14 @@
 
     <?php
     $error = "";
+    include_once("bdd.php");
+
         if(isset($_GET['error']) && $_GET['error'] == "password")
             $error = "<h3>Veuilliez vérifier que les deux mots de passes soient bien les mêmes</h3>";
         if(isset($_GET['error']) && $_GET['error'] == "email")
             $error = "<h3>Cette adresse email est déjà utilisée</h3>";
 
         if(isset($_GET['inscription'])){
-            include_once("bdd.php");
             $request = $bdd->query("SELECT email FROM Clients");
             while($donnees = $request->fetch()){
                 if($_POST['email'] == $donnees['email'])
@@ -36,6 +38,25 @@
                     </form>
                 </div>
                 <center><?= $error ?></center>
+                <?php
+            }
+        }
+        if(!empty($_SESSION['email'])){
+            $request = $bdd->query("SELECT email, compteVerifie FROM Clients WHERE email=".$_SESSION['email']);
+            $donnees = $request->fetch();
+            if($donnees['email'] == $_SESSION['email'] && $donnees['compteVerifie'] == 0){
+                ?>
+                <center>
+                    <i class='bx bx-mail-send' style="font-size: 30px"></i><br>
+                    Veuilliez valider votre compte en cliquant sur le lien que vous avez reçu par mail<br>
+                    <a href="comptePost.php?renvoieEmail">Je n'ai pas reçu de mail</a>
+                </center>
+                <?php
+            }
+            else{
+                ?>
+                <h2>Mon compte</h2>
+                <h3>Bonjour <?= $_SESSION['prenom'] ?></h3>
                 <?php
             }
         }
