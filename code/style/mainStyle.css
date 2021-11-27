@@ -4,6 +4,9 @@ body{
 .bold{
 	font-weight: bold;
 }
+.underline{
+	text-decoration: underline;
+}
 .centre{
 	text-align: center;
 }
@@ -16,8 +19,16 @@ body{
 .cache{
 	display: none;
 }
+h3{
+	margin-top: 30px;
+}
 h4{
 	margin-top: 100px;
+}
+li{
+	font-size: 18px;
+	list-style: none;
+	margin-top: 10px;
 }
 img.article{
 	height: 300px;
@@ -105,6 +116,16 @@ div.article .pourcentage{
 .texteBarre{
 	text-decoration:line-through;
 }
+a.button{
+	color: white;
+	background-color: #363636;
+	border-radius: 10px;
+	padding: 5px 20px;
+}
+a.button:hover{
+	box-shadow: 0 0 20px #363636;
+	text-decoration: none;
+}
 a.contenu{
 	display: contents;
 	padding: 0;
@@ -145,7 +166,6 @@ a.contenu{
 .travaux{
 	border: 1px solid black;
 }
-
 .account{
 	margin: 100px auto;
 	width: 70%;
@@ -153,7 +173,6 @@ a.contenu{
 	border-radius: 10px;
 	box-shadow: 0 0 10px grey;
 }
-
 .separation{
 	float: right;
 	border-left: 1px solid black;
@@ -161,9 +180,37 @@ a.contenu{
 	width: 50%;
 	margin-top: 18px;
 }
-
 .oneForm{
 	width: 42%;
 	padding: 10px;
+}
+div.listeActionArticle{
+	border: 1px solid black;
+	width: 300px;
+	border-radius: 10px;
+	height: 164px;
+	display: flex;
+	background-color: #363636;
+	box-shadow: 0 0 20px grey;
+}
+div.listeActionArticle a{
+	color: white;
+}
+div.listeActionArticle a:hover{
+	text-decoration: none;
+	background-color: white;
+	color: black;
+	padding: 2px 5px;
+	border-radius: 5px;
+}
+.changeMdp{
+	padding: 20px 0px;
+	width: 50%;
+}
+a.supprimer{
+	background-color: #DF5B5B;
+}
+a.supprimer:hover{
+	box-shadow: 0 0 20px red;
 }
 

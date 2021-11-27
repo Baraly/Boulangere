@@ -44,19 +44,46 @@ include_once("bdd.php");
         $_SESSION['email'] = $_GET['email'];
         $_SESSION['prenom'] = $_GET['prenom'];
 
-        envoyerMailValidation($_SESSION['email'], $verifiedkey);
+        envoyerMailValidation($_SESSION['prenom'], $_SESSION['email'], $donnees['vkey']);
         header("location: compte.php");
     }
     else if(isset($_GET['renvoieEmail'])){
         $request = $bdd->query("SELECT email, vkey FROM Clients WHERE email='".$_SESSION['email']."'");
         $donnees = $request->fetch();
-        envoyerMailValidation($_SESSION['email'], $donnees['vkey']);
+        envoyerMailValidation($_SESSION['prenom'], $_SESSION['email'], $donnees['vkey']);
         header("location: compte.php");
     }
+    else if(isset($_GET['changeMdp'])){
+        $request = $bdd->query("SELECT email, motDePasse FROM Clients WHERE email='".$_SESSION['email']."'");
+        $donnees = $request->fetch();
+        if(password_verify($_POST['mdpActuel'], $donnees['motDePasse'])){
+            if($_POST['mdpNew1'] == $_POST['mdpNew2']){
+                $password = password_hash($_POST['mdpNew1'], PASSWORD_DEFAULT);
+                $bdd->exec("UPDATE Clients SET motDePasse='".$password."' WHERE email='".$_SESSION['email']."'");
+                header("location: compte.php?changeMdp=&succes=true");
+            }
+            else
+                header("location: compte.php?changeMdp=&error=mdpDiff");
+        }
+        else
+            header("location: compte.php?changeMdp=&error=mdpActuel");
+    }
+    else if(isset($_GET['suppCompte'])){
+        $request = $bdd->query("SELECT idCommande FROM Commandes WHERE email='".$_SESSION['email']."'");
+        while($donnees = $request->fetch()){
+            $bdd->exec("DELETE FROM LignesCommandes WHERE idCommande='".$donnees['idCommande']."'");
+        }
+        $bdd->exec("DELETE FROM Commandes WHERE email='".$_SESSION['email']."'");
+        $bdd->exec("DELETE FROM Clients WHERE email='".$_SESSION['email']."'");
+        session_destroy();
+        header("location: compte.php?aurevoir");
 
-    function envoyerMailValidation($email, $vkey){
+    }
+
+    function envoyerMailValidation($prenom, $email, $vkey){
         $subject = "Email de vérification";
-        $message = "<h3>Afin de pouvoir continuer vos achats sur notre site, veuilliez <a href='http://Baraly.fr/code/verify.php?email=$email&vkey=$vkey'>valider votre compte</a></h3>";
+        $message = "<h2>Bonjour $prenom</h2>";
+        $message .= "<h3>Nous sommes heureux de vous compter parmis nous.<br>Afin de pouvoir continuer vos achats sur notre site, veuilliez <a href='http://Baraly.fr/code/verify.php?email=$email&vkey=$vkey'>valider votre compte</a>.</h3>";
         $headers = "From: NePasRepondre@baraly.fr\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type:text/html; charset='UTF-8'\r\n";
