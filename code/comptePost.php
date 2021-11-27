@@ -6,11 +6,12 @@ include_once("bdd.php");
 
     // Lors de la connexion
     if(isset($_GET['connexion'])){
-        $request = $bdd->query("SELECT email, motDePasse FROM Clients WHERE email='".$_POST['email']."'");
+        $request = $bdd->query("SELECT email, motDePasse, prenom FROM Clients WHERE email='".$_POST['email']."'");
         $donnees = $request->fetch();
-        if($donnees['motDePasse'] == $_POST['password']){
-            $_SESSION['email'] = $_GET['email'];
-            $_SESSION['prenom'] = $_GET['prenom'];
+        if(password_verify($_POST['password'], $donnees['motDePasse'])){
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['prenom'] = $donnees['prenom'];
+            header("location: compte.php");
         }
         else{
             header("location: compte.php?error=connexion");

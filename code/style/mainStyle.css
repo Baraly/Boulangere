@@ -10,6 +10,9 @@ body{
 .top{
 	margin-top: 5px;
 }
+.right{
+	float: right;
+}
 .cache{
 	display: none;
 }

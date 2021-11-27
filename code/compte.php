@@ -20,7 +20,12 @@
         if(isset($_GET['error']) && $_GET['error'] == "email")
             $error = "<h3>Cette adresse email est déjà utilisée.</h3>";
         if(isset($_GET['error']) && $_GET['error'] == "connexion")
-            $error = "<h3>Votre adresse email ou votre mot de passe est incorrect</h3>";
+            $error = "<h3>Votre adresse email ou votre mot de passe est incorrect.</h3>";
+        if(isset($_GET['deconnexion'])) {
+            session_destroy();
+            header("location: compte.php");
+        }
+
 
         if(isset($_GET['inscription'])){
             $request = $bdd->query("SELECT email FROM Clients");
@@ -58,12 +63,12 @@
             else{
                 ?>
                 <h2>Mon compte</h2>
+                <a href="compte.php?deconnexion" class="right">Déconnexion</a>
                 <h5>Bonjour <?= $_SESSION['prenom'] ?></h5>
                 <?php
             }
         }
         else{
-            session_destroy();
             ?>
             <h2>Mon compte</h2>
             <div class="row account">
