@@ -36,13 +36,32 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="bandeauPrix">
-                                <h4>Prix</h4>
-                                <p class="bold centre"><?= $donnees['prix']; ?>€</p>
+                                <div class="row">
+                                    <div class="col-sm-5"><h4>Prix</h4></div>
+                                    <div class="col-sm-7"><p class="bold" style="font-size: 20px"><?= $donnees['prix']; ?>€</p></div>
+                                </div>
+
                                 <?php if($donnees['promotion'] != 0){
                                     ?>
                                     <p class="bold">Profitez de -<?= $donnees['promotion'] ?>%</p>
                                     <?php
-                                }?>
+                                }
+                                if($donnees['stock'] > 10){
+                                    echo "<p style='color: green'>Il reste ".$donnees['stock']." produits en stock</p>";
+                                }
+                                else if($donnees['stock'] > 5){
+                                    echo "<p style='color: darkorange'>Il reste ".$donnees['stock']." produits en stock</p>";
+                                }
+                                else if($donnees['stock'] > 1){
+                                    echo "<p style='color: red'>Il reste ".$donnees['stock']." produits en stock !</p>";
+                                }
+                                else if($donnees['stock'] == 1){
+                                    echo "<p style='color: red'>Il reste ".$donnees['stock']." produit en stock !</p>";
+                                }
+                                else{
+                                    echo "<p style='color: red'>Rupture de stock !</p>";
+                                }
+                                ?>
                                 <p>Livraison : 3-4 jours</p>
                                 <form action="" method="">
                                     <select name="nbProduit">
