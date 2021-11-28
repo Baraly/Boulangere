@@ -117,9 +117,34 @@
                 </div>
                 <h3>Bonjour <?= $_SESSION['prenom'] ?></h3><br>
                 <h5 class="underline">Récapitulatif :</h5>
-                <p>Vous n'avez aucune commande en cours et 0 produit dans votre panier.</p>
-                <p>Pourquoi ne pas commencer à le remplir dès maintenant ? ^^<br>
-                Rendez-vous vite sur <a href="index.php">la page d'accueil</a> afin de découvrir nos promotions !</p>
+                <?php
+                    $request = $bdd->query("SELECT COUNT(*) AS nbCommande FROM Commandes WHERE email='".$_SESSION['email']."' and etat='validee'");
+                    $donnees = $request->fetch();
+                    if($donnees['nbCommande'] == 0){
+                        echo "<p>Vous n'avez aucune commande en cours et";
+                    }
+                    else if($donnees['nbCommande'] == 1){
+                        echo "<p>Vous avez 1 commande en cours et";
+                    }
+                    else{
+                        echo "<p>Vous avez ".$donnees['nbCommande']." commandes en cours et";
+                    }
+
+                    $request = $bdd->query("SELECT COUNT(*) AS nbCommande FROM Commandes WHERE email='".$_SESSION['email']."' and etat='enCours'");
+                    $donnees = $request->fetch();
+                    if($donnees['nbCommande'] == 0){
+                        echo " aucun produit dans votre panier</p>";
+                        echo "<p>Pourquoi ne pas commencer à le remplir dès maintenant ? ^^<br>
+                        Rendez-vous vite sur <a href='index.php'>la page d'accueil</a> afin de découvrir nos promotions !</p>";
+                    }
+                    else if($donnees['nbCommande'] == 1){
+                        echo " 1 produit dans votre panier</p>";
+                    }
+                    else{
+                        echo " ".$donnees['nbCommande']." produits dans votre panier</p>";
+                    }
+                ?>
+
                 <?php
             }
         }
