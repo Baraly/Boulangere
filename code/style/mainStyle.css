@@ -31,7 +31,7 @@ li{
 	margin-top: 10px;
 }
 img.article{
-	height: 300px;
+	width: 340px;
 	display: inline;
 }
 img.recherche{
@@ -91,7 +91,6 @@ div.article{
 	margin-left: 0px;
 	margin-top: 30px;
 	margin-bottom: 40px;
-
 	z-index: 1;
 	height: 120px;
 }
