@@ -63,11 +63,11 @@
             }
             else if(isset($_GET['changeMdp'])){
                 if(isset($_GET['error']) && $_GET['error']=="mdpActuel")
-                    $error = "Vous n'avez pas saisi correctement votre mot de passe actuel !";
+                    $error = "<h3>Vous n'avez pas saisi correctement votre mot de passe actuel !</h3>";
                 if(isset($_GET['error']) && $_GET['error']=="mdpDiff")
-                    $error = "Vous n'avez pas saisi correctement votre nouveau mot de passe !";
+                    $error = "<h3>Vous n'avez pas saisi correctement votre nouveau mot de passe !</h3>";
                 if(isset($_GET['succes']))
-                    $error = "Votre mot de passe à bien été mis à jour !";
+                    $error = "<h3>Votre mot de passe à bien été mis à jour !</h3>";
                 ?>
                 <h2>Modification du mot de passe</h2>
                 <a href="compte.php" class="right button">Retour</a>
@@ -79,7 +79,7 @@
                         <input type="submit">
                     </form>
                 </div>
-                <center><?= $error ?></center>
+                <center style="margin-top: -40px"><?= $error ?></center>
                 <?php
             }
             else if(isset($_GET['infos'])){
@@ -191,7 +191,7 @@
                     </form>
                 </div>
             </div>
-            <center><?= $error?></center>
+            <center style="margin-top: -50px"><?= $error?></center>
             <?php
             if(isset($_GET['aurevoir'])){
                 echo "<center><h3>Nous espérons vous revoir très bientôt.</h3></center>";

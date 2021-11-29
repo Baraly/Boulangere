@@ -19,7 +19,7 @@ include_once("bdd.php");
     }
 
     // Lors de l'inscription
-    if(isset($_GET['email'])){
+    if(isset($_GET['email']) && !isset($_GET['verifieMdpOublie'])){
 
         // Cas où les deux mots de passes ne soient pas les mêmes
         if($_POST['password1'] != $_POST['password2'])
@@ -88,10 +88,10 @@ include_once("bdd.php");
         else {
             $request = $bdd->query("SELECT prenom, email, vkey FROM Clients WHERE email='" . $_POST['email'] . "'");
             $donnees = $request->fetch();
-            $subject = "Réinitialisation du mot de passe";
+            $subject = "Reinitialisation du mot de passe";
             $message = "<h2>Bonjour " . $donnees['prenom'] . ",</h2>";
             $message .= "<h3>Si vous souhaitez réinitialiser votre mot de passe, veuillez cliquer sur ce <a href='http://Baraly.fr/code/verify.php?email=" . $_POST['email'] . "&vkey=" . $donnees['vkey'] . "&mdpOublie'>lien</a>.</h3>";
-            $message .= "<p>Cordialement, Baptiste</p>";
+            $message .= "<h3>Cordialement, Baptiste</h3>";
             $headers = "From: NePasRepondre@baraly.fr\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type:text/html; charset='UTF-8'\r\n";
@@ -102,9 +102,10 @@ include_once("bdd.php");
         }
     }
     else if(isset($_GET['verifieMdpOublie'])){
-        if($_GET['mdpNew1'] == $_GET['mdpNew2']){
-            $password = password_hash($_GET['mdpNew1'], PASSWORD_DEFAULT);
-            $bdd->exec("UPDATE Clients SET motDePasse='".$password."' WHERE email='".$_GET['email']."'");
+        if($_POST['mdpNew1'] == $_POST['mdpNew2']){
+            echo "<p>les mots de passes sont les mêmes !</p>";
+            $password = password_hash($_POST['mdpNew1'], PASSWORD_DEFAULT);
+            $verite = $bdd->exec("UPDATE Clients SET motDePasse='".$password."' WHERE email='".$_GET['email']."'");
             $request = $bdd->query("SELECT prenom FROM Clients WHERE email='".$_GET['email']."'");
             $donnees = $request->fetch();
             $_SESSION['email'] = $_GET['email'];
@@ -112,15 +113,14 @@ include_once("bdd.php");
             header("location: compte.php");
         }
         else{
-            header("location: verify.php?error");
+            header("location: verify.php?email=".$_GET['email']."&vkey=".$_GET['vkey']."&mdpOublie=true&error");
         }
     }
-
     function envoyerMailValidation($prenom, $email, $vkey){
         $subject = "Email de vérification";
         $message = "<h2>Bonjour $prenom,</h2>";
         $message .= "<h3>Nous sommes heureux de vous compter parmis nous.<br>Afin de pouvoir continuer vos achats sur notre site, veuillez <a href='http://Baraly.fr/code/verify.php?email=$email&vkey=$vkey'>valider votre compte</a>.</h3>";
-        $message .= "<p>Cordialement, Baptiste</p>";
+        $message .= "<h3>Cordialement, Baptiste</h3>";
         $headers = "From: NePasRepondre@baraly.fr\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type:text/html; charset='UTF-8'\r\n";
