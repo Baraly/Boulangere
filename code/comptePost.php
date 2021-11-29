@@ -77,13 +77,40 @@ include_once("bdd.php");
         $bdd->exec("DELETE FROM Clients WHERE email='".$_SESSION['email']."'");
         session_destroy();
         header("location: compte.php?aurevoir");
+    }
+    else if(isset($_GET['mdpOublie'])){
+        $subject = "Mot de Passe oublié";
+        $message = "<h2>Bonjour $prenom</h2>";
+        $message .= "<h3>Si vous souhaitez réinitialiser votre mot de passe, veuillez cliquer sur ce <a href='http://Baraly.fr/code/verify.php?email=$email&vkey=$vkey&mdpOublie'>lien</a>.</h3>";
+        $message .= "<p>Cordialement, Baptiste</p>";
+        $headers = "From: NePasRepondre@baraly.fr\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type:text/html; charset='UTF-8'\r\n";
 
+        mail($email, $subject, $message, $headers);
+
+        header("location: compte.php");
+    }
+    else if(isset($_GET['verifieMdpOublie'])){
+        if($_GET['mdpNew1'] == $_GET['mdpNew2']){
+            $password = password_hash($_GET['mdpNew1'], PASSWORD_DEFAULT);
+            $bdd->exec("UPDATE Clients SET motDePasse='".$password."' WHERE email='".$_GET['email']."'");
+            $request = $bdd->query("SELECT prenom FROM Clients WHERE email='".$_GET['email']."'");
+            $donnees = $request->fetch();
+            $_SESSION['email'] = $_GET['email'];
+            $_SESSION['prenom'] = $donnees['prenom'];
+            header("location: compte.php");
+        }
+        else{
+            header("location: verify.php?error");
+        }
     }
 
     function envoyerMailValidation($prenom, $email, $vkey){
         $subject = "Email de vérification";
         $message = "<h2>Bonjour $prenom</h2>";
-        $message .= "<h3>Nous sommes heureux de vous compter parmis nous.<br>Afin de pouvoir continuer vos achats sur notre site, veuilliez <a href='http://Baraly.fr/code/verify.php?email=$email&vkey=$vkey'>valider votre compte</a>.</h3>";
+        $message .= "<h3>Nous sommes heureux de vous compter parmis nous.<br>Afin de pouvoir continuer vos achats sur notre site, veuillez <a href='http://Baraly.fr/code/verify.php?email=$email&vkey=$vkey'>valider votre compte</a>.</h3>";
+        $message .= "<p>Cordialement, Baptiste</p>";
         $headers = "From: NePasRepondre@baraly.fr\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type:text/html; charset='UTF-8'\r\n";

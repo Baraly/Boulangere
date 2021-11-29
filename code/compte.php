@@ -75,8 +75,8 @@
                     <form action="comptePost.php?changeMdp" method="POST">
                         <label>Votre mot de passe actuel : <input type="password" name="mdpActuel" required></label><br>
                         <label>Le nouveau mot de passe : <input type="password" name="mdpNew1" required></label><br>
-                        <label>Confirmez le nouveau mot de passe : <input type="password" name="mdpNew2" required></label>
-                        <input type="submit" class="cache">
+                        <label>Confirmez le nouveau mot de passe : <input type="password" name="mdpNew2" required></label><br>
+                        <input type="submit">
                     </form>
                 </div>
                 <center><?= $error ?></center>
@@ -157,8 +157,10 @@
                     <form action="comptePost.php?connexion" method="post">
                         <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/></label><br>
                         <label>Mot de passe : <input type="password" name="password" required/></label>
-                        <input type="submit" class="cache"/>
+                        <input type="submit"/>
                     </form>
+                    <br>
+                    <a href="comptePost.php?mdpOublie">J'ai oublié mon mot de passe</a>
                 </div>
                 <div class="col-sm-2">
                     <span class="separation"></span>
@@ -168,8 +170,8 @@
                     <form action="compte.php?inscription" method="post">
                         <label>Nom : <input type="text" name="firstname" required/></label><br>
                         <label>Prénom : <input type="text" name="surname" required/></label><br>
-                        <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/></label>
-                        <input type="submit" class="cache"/>
+                        <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/></label><br>
+                        <input type="submit"/>
                     </form>
                 </div>
             </div>
