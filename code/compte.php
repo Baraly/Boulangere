@@ -35,7 +35,7 @@
             if($error == ""){
                 ?>
                 <h2>Création de compte</h2>
-                <div class="account oneForm">
+                <div class="account oneForm" style="height:100px">
                     <?php $form = "comptePost.php?nom=".$_POST['firstname']."&prenom=".$_POST['surname']."&email=".$_POST['email'] ?>
                     <form action="<?= $form ?>" method="POST">
                         <label>Créez un mot  de passe : <input type="password" name="password1"></label><br>
@@ -148,6 +148,22 @@
                 <?php
             }
         }
+        else if(isset($_GET['mdpOublie'])){
+            if(isset($_GET['error']) && $_GET['error'] == "mdpOublie") {
+                $error = "<h3>Cette adresse email n'existe pas !</h3>";
+            }
+            ?>
+            <h2>Mot de passe oublié</h2>
+            <div class="centre account">
+                <h4 style="margin-top: 20px">Veuillez rentrer votre adresse email <br>afin de pouvoir réinitialiser votre mot de passe</h4><br>
+                <form action="comptePost.php?mdpOublie" method="POST">
+                    <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required></label><br>
+                    <input type="submit">
+                </form>
+                <center style="margin-top: 50px"><?= $error ?></center>
+            </div>
+            <?php
+        }
         else{
             ?>
             <h2>Mon compte</h2>
@@ -160,7 +176,7 @@
                         <input type="submit"/>
                     </form>
                     <br>
-                    <a href="comptePost.php?mdpOublie">J'ai oublié mon mot de passe</a>
+                    <a href="compte.php?mdpOublie">J'ai oublié mon mot de passe</a>
                 </div>
                 <div class="col-sm-2">
                     <span class="separation"></span>
