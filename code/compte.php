@@ -35,12 +35,12 @@
             if($error == ""){
                 ?>
                 <h2>Création de compte</h2>
-                <div class="account oneForm" style="height:100px">
+                <div class="account oneForm" style="height:180px">
                     <?php $form = "comptePost.php?nom=".$_POST['firstname']."&prenom=".$_POST['surname']."&email=".$_POST['email'] ?>
-                    <form action="<?= $form ?>" method="POST">
-                        <label>Créez un mot  de passe : <input type="password" name="password1"></label><br>
-                        <label>Confirmez le mot de passe : <input type="password" name="password2"></label>
-                        <input type="submit" class="cache">
+                    <form action="<?= $form ?>" method="POST" class="box">
+                        <input type="password" name="password1" placeholder="Créez un mot  de passe" required>
+                        <input type="password" name="password2" placeholder="Confirmez le mot de passe" required>
+                        <input type="submit" value="Soumettre">
                     </form>
                 </div>
                 <center><?= $error ?></center>
@@ -56,7 +56,8 @@
                 ?>
                 <center>
                     <i class='bx bx-mail-send' style="font-size: 50px"></i><br>
-                    Veuilliez valider votre compte en cliquant sur le lien que vous avez reçu par mail.<br>
+                    Un mail a été envoyé à <span class="italic"><?= $donnees['email'] ?></span><br>
+                    Veuillez valider votre compte en cliquant sur le lien que vous avez reçu par mail.<br>
                     <a href="comptePost.php?renvoieEmail">Je n'ai pas reçu de mail</a>
                 </center>
                 <?php
@@ -72,11 +73,11 @@
                 <h2>Modification du mot de passe</h2>
                 <a href="compte.php" class="right button">Retour</a>
                 <div class="centre account changeMdp">
-                    <form action="comptePost.php?changeMdp" method="POST">
-                        <label>Votre mot de passe actuel : <input type="password" name="mdpActuel" required></label><br>
-                        <label>Le nouveau mot de passe : <input type="password" name="mdpNew1" required></label><br>
-                        <label>Confirmez le nouveau mot de passe : <input type="password" name="mdpNew2" required></label><br>
-                        <input type="submit">
+                    <form action="comptePost.php?changeMdp" method="POST" class="box">
+                        <input type="password" name="mdpActuel" placeholder="Votre mot de passe actuel" required>
+                        <input type="password" name="mdpNew1" placeholder="Le nouveau mot de passe" required>
+                        <input type="password" name="mdpNew2" placeholder="Confirmez le nouveau mot de passe" required>
+                        <input type="submit" value="Soumettre">
                     </form>
                 </div>
                 <center style="margin-top: -40px"><?= $error ?></center>
@@ -88,13 +89,13 @@
             else if(isset($_GET['suppCompte'])){
                 ?>
                 <h2>Suppession du compte</h2>
-                <div class="centre account">
+                <div class="centre account suppCompte">
                     <h4 class="top">Voulez-vous vraiment supprimer votre compte ?</h4>
                     <p>En supprimant votre compte, vos commandes seront annulées et votre panier sera effacé.<br>
-                    Vous pourrez toute fois vous réinscrire plus tard sur notre site.</p>
+                    Vous pourrez toute fois vous réinscrire plus tard sur notre site.</p><br>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="compte.php" class="button">Annuler</a>
+                            <a href="compte.php" class=" button annuler">Annuler</a>
                         </div>
                         <div class="col-sm-6">
                             <a href="comptePost.php?suppCompte" class="button supprimer">Supprimer</a>
@@ -155,10 +156,10 @@
             ?>
             <h2>Mot de passe oublié</h2>
             <div class="centre account">
-                <h4 style="margin-top: 20px">Veuillez rentrer votre adresse email <br>afin de pouvoir réinitialiser votre mot de passe</h4><br>
-                <form action="comptePost.php?mdpOublie" method="POST">
-                    <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required></label><br>
-                    <input type="submit">
+                <form action="comptePost.php?mdpOublie" method="POST" class="box">
+                    <h4 style="margin-top: 20px">Veuillez rentrer votre adresse email <br>afin de pouvoir réinitialiser votre mot de passe</h4><br>
+                    <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required>
+                    <input type="submit" value="Soumettre">
                 </form>
                 <center style="margin-top: 50px"><?= $error ?></center>
             </div>
@@ -169,25 +170,25 @@
             <h2>Mon compte</h2>
             <div class="row account">
                 <div class="col-sm-5 centre">
-                    <h4 class="top">Connexion</h4>
-                    <form action="comptePost.php?connexion" method="post">
-                        <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/></label><br>
-                        <label>Mot de passe : <input type="password" name="password" required/></label>
-                        <input type="submit"/>
+                    <form action="comptePost.php?connexion" method="post" class="box">
+                        <h4 class="top">Connexion</h4>
+                        <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required/>
+                        <input type="password" name="password" placeholder="Mot de passe" required/>
+                        <input type="submit" value="Soumettre"/>
                     </form>
                     <br>
-                    <a href="compte.php?mdpOublie">J'ai oublié mon mot de passe</a>
+                    <a href="compte.php?mdpOublie" class="lien">Mot de passe oublié ?</a>
                 </div>
                 <div class="col-sm-2">
                     <span class="separation"></span>
                 </div>
                 <div class="col-sm-5 centre">
-                    <h4 class="top">Inscription</h4>
-                    <form action="compte.php?inscription" method="post">
-                        <label>Nom : <input type="text" name="firstname" required/></label><br>
-                        <label>Prénom : <input type="text" name="surname" required/></label><br>
-                        <label>Email : <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/></label><br>
-                        <input type="submit"/>
+                    <form action="compte.php?inscription" method="post" class="box">
+                        <h4 class="top">Inscription</h4>
+                        <input type="text" name="firstname" placeholder="Nom" required/>
+                        <input type="text" name="surname" placeholder="Prénom" required/>
+                        <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required/>
+                        <input type="submit" value="Soumettre"/>
                     </form>
                 </div>
             </div>
