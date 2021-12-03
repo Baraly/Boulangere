@@ -84,7 +84,30 @@
                 <?php
             }
             else if(isset($_GET['infos'])){
+                $donnees = $bdd->query("SELECT * FROM Clients WHERE email='".$_SESSION['email']."'")->fetch();
+                ?>
+                <h2>Mes informations personnelles</h2>
+                <a href="compte.php" class="right button">Retour</a>
+                <div class="infoPerso">
+                    <p>Nom : <?= $donnees['nom'] ?></p>
+                    <p>Prénom : <?= $donnees['prenom'] ?></p>
+                    <p>Email : <?= $donnees['email'] ?></p>
+                    <?php
+                        if($donnees['compteVerifie'])
+                            echo "<p>Votre compte a été vérifié</p>";
+                        else
+                            echo "<p>Votre compte n'a pas été vérifié</p>";
+                        echo "<p>Adresse : ";
+                        if($donnees['adresse'] != null)
+                            echo $donnees['adresse']."</p>";
+                        else
+                            echo "non renseignée</p>";
 
+                        $date = date('d M Y', strtotime($donnees['creation']));
+                    ?>
+                    <p>Compte créé : <?= $date ?></p>
+                </div>
+                <?php
             }
             else if(isset($_GET['suppCompte'])){
                 ?>
@@ -112,10 +135,11 @@
                     <ul>
                         <li><a href="compte.php?deconnexion">Déconnexion</a></li>
                         <li><a href="compte.php?changeMdp">Modifier mon mot de passe</a></li>
-                        <li><a href="compte.php?infos">Modifier mes informations</a></li>
+                        <li><a href="compte.php?infos">Visualiser mes informations</a></li>
                         <li><a href="compte.php?suppCompte">Supprimer mon compte</a></li>
                     </ul>
                 </div>
+                <br>
                 <h3>Bonjour <?= $_SESSION['prenom'] ?></h3><br>
                 <h5 class="underline">Récapitulatif :</h5>
                 <?php
@@ -198,7 +222,7 @@
                 echo "<center><h3>Nous espérons vous revoir très bientôt.</h3></center>";
             }
         }
-
+    $bdd = null;
     ?>
 
 

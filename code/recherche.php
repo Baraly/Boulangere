@@ -65,7 +65,9 @@
 			}
 		}
 		else
-			header("location: index.php");
+            header("location: index.php");
+
+$bdd = null;
 	?>
 </body>
 </html>

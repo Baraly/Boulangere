@@ -24,10 +24,10 @@ $error = "";
             ?>
             <h2>Modification du mot de passe</h2>
                  <div class="centre account changeMdp">
-                       <?php echo "<form action='comptePost.php?verifieMdpOublie=true&email=".$_GET['email']."' method='POST'>"; ?>
-                            <label>Le nouveau mot de passe : <input type="password" name="mdpNew1" required></label><br>
-                            <label>Confirmez le nouveau mot de passe : <input type="password" name="mdpNew2" required></label><br>
-                            <input type="submit">
+                       <?php echo "<form action='comptePost.php?verifieMdpOublie=true&email=".$_GET['email']."' method='POST' class='box'>"; ?>
+                            <input type="password" name="mdpNew1" placeholder="Le nouveau mot de passe" required>
+                            <input type="password" name="mdpNew2" placeholder="Confirmez le nouveau mot de pass" required>
+                            <input type="submit" value="Soumettre">
                        </form>
                  </div>
                  <center style="margin-top: -40px"><?= $error ?></center>
@@ -55,6 +55,7 @@ $error = "";
         <center style="font-size:30px; margin-top: 50px">Une erreur est survenue !</center>
         <?php
     }
+$bdd = null;
 ?>
 </body>
 </html>

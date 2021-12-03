@@ -35,14 +35,14 @@ include_once("bdd.php");
 
         // On insère les données das la BDD
         $insert->execute(array(
-            'nom' => $_GET['nom'],
-            'prenom' => $_GET['prenom'],
-            'email' => $_GET['email'],
+            'nom' => ucwords(strtolower($_GET['nom'])),
+            'prenom' => ucwords(strtolower($_GET['prenom'])),
+            'email' => strtolower($_GET['email']),
             'motDePasse' => $password,
             'vkey' => $verifiedkey));
 
-        $_SESSION['email'] = $_GET['email'];
-        $_SESSION['prenom'] = $_GET['prenom'];
+        $_SESSION['email'] = strtolower($_GET['email']);
+        $_SESSION['prenom'] = ucwords(strtolower($_GET['prenom']));
 
         envoyerMailValidation($_SESSION['prenom'], $_SESSION['email'], $verifiedkey);
         header("location: compte.php");
@@ -127,5 +127,5 @@ include_once("bdd.php");
 
         mail($email, $subject, $message, $headers);
     }
-
+$bdd = null;
 ?>

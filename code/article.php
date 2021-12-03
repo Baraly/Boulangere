@@ -83,10 +83,10 @@
         }
         else{
             ?>
-            <h4>Il n'y a rien à voir ici, veuilliez retourner sur <a href="../index.php">la page principale</a></h4>
+            <h4>Il n'y a rien à voir ici, veuilliez retourner sur <a href="index.php">la page principale</a></h4>
             <?php
         }
-
+    $bdd = null;
     ?>
 
 <script>

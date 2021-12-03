@@ -8,7 +8,7 @@
 				<p><a href="#" class="animation">Catégories<i class='bx bxs-category'></i></a></p>
 			</div>
 			<div class="col-sm-2 barre">
-				<p><a href="#" class="animation">Liked<i class='bx bxs-heart'></i></a></p>
+				<p><a href="#" class="animation">Favori<i class='bx bxs-heart'></i></a></p>
 			</div>
 			<div class="col-sm-2 barre">
 				<p><a href="#" class="animation">Mon panier<i class='bx bxs-basket'></i></a></p>

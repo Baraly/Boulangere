@@ -51,6 +51,7 @@ while ($donnees = $requete->fetch()){
         <?php
     }
 }
+$bdd = null;
 ?>
 
 </body>
