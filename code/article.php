@@ -1,3 +1,30 @@
+<?php
+session_start();
+include_once("bdd.php");
+
+if(isset($_POST['nbProduit'])){
+    if(!($bdd->query("select * from Commandes where email='".$_SESSION['email']."' and etat='Panier'")->fetch())){
+        $insert = $bdd->prepare("insert into Commandes values (0, :heure, :email, 'Panier')");
+        $insert->execute(array(
+                'heure' => date("Y-m-d H:i:s"),
+                'email' => $_SESSION['email']
+        ));
+    }
+    $id = $bdd->query("select idCommande from Commandes where email='".$_SESSION['email']."' and etat='Panier'")->fetch();
+    $prix = $bdd->query("select prix, promotion from Produits where idProduit=".$_GET['article'])->fetch();
+    $total = ($prix['prix'] * (100 - $prix['promotion'])/100) * $_POST['nbProduit'];
+    $insert = $bdd->prepare("insert into LignesCommandes values (0, :idCommande, :idArticle, :nbProduit, :total)");
+    $insert->execute(array(
+            'idCommande' => $id['idCommande'],
+            'idArticle' => $_GET['article'],
+            'nbProduit' => $_POST['nbProduit'],
+            'total' => $total
+    ));
+    header("location: article.php?article=".$_GET['article']);
+}
+
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -13,7 +40,6 @@
     <?php
 
         if(!empty($_GET['article'])){
-            include_once("bdd.php");
 
             $requeteSQL = "SELECT * FROM Produits WHERE idProduit = ".$_GET['article'];
 
@@ -63,12 +89,13 @@
                                 }
                                 ?>
                                 <p>Livraison : 3-4 jours</p>
-                                <form action="" method="">
+                                <?php $url = "article.php?article=".$_GET['article']; ?>
+                                <form action=<?= $url ?> method="POST">
                                     <select name="nbProduit">
                                         <?php for($i = 1; $i <= 10; $i++){
                                             echo "<option>".$i."</option>";
                                         }?>
-                                        <option onclick="formAutre()";>Autre</option>
+                                        <option onclick="formAutre()">Autre</option>
                                     </select><br>
                                     <div class="submit">
                                         <input type="submit" class="submit" value="Ajouter au panier"/>

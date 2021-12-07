@@ -16,7 +16,7 @@
     include_once("bdd.php");
 
         if(isset($_GET['error']) && $_GET['error'] == "password")
-            $error = "<h3>Veuilliez vérifier que les deux mots de passes soient bien les mêmes.</h3>";
+            $error = "<h3>Veuillez vérifier que les deux mots de passes soient bien les mêmes.</h3>";
         if(isset($_GET['error']) && $_GET['error'] == "email")
             $error = "<h3>Cette adresse email est déjà utilisée.</h3>";
         if(isset($_GET['error']) && $_GET['error'] == "connexion")
