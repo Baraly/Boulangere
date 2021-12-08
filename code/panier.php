@@ -5,7 +5,6 @@ if(isset($_GET['suppProd'])){
     $bdd->exec("delete from LignesCommandes where idCommande=".$_GET['idCommande']." and idProduit=".$_GET['suppProd']);
     if(!($bdd->query("select * from LignesCommandes where idCommande=".$_GET['idCommande'])->fetch())){
         $bdd->exec("delete from Commandes where idCommande=".$_GET['idCommande']);
-        echo "on supprime la commande dans la BDD";
     }
 }
 
@@ -45,10 +44,26 @@ if(isset($_GET['suppProd'])){
                             <img <?= "src=../donnees/img/".$donnees['photo']; ?> class="recherche"/>
                         </div>
                         <div class="col-sm-3 prix centre">
-                            <p>Prix à l'unité : <?= $donnees['prix'] ?>€</p>
+                            <?php if($donnees['promotion'] != 0){
+                                ?>
+                                <p>Prix à l'unité : <span class="texteBarre"><?= $donnees['prix']; ?></span>€<br>
+                                Promotion : <span style="font-weight:bold"><?= $donnees['prix']*(100 - $donnees['promotion'])/100; ?>€</span></p>
+                                <?php
+                            }else{
+                                ?>
+                                <p>Prix à l'unité : <?= $donnees['prix'] ?>€</p>
+                                <?php
+                            } ?>
                         </div>
                         <div class="col-sm-3 centre prix">
-                            <p>Quantité : <?= $donnees['quantite'] ?></p>
+                            <p>Quantité : <?= $donnees['quantite'] ?>
+                                <?php
+                                $stock = $bdd->query("select stock from Produits where idProduit=".$donnees['idProduit'])->fetch();
+                                    if($stock['stock'] <  $donnees['quantite']){
+                                        echo "<br><span style='color: red'>Problème de stock !</span>";
+                                    }
+                                ?>
+                            </p>
                         </div>
                         <div class="col-sm-3 centre prix">
                             <p>

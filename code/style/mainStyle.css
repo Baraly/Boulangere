@@ -16,6 +16,10 @@ body{
 .top{
 	margin-top: 5px;
 }
+.bottom{
+	position: fixed;
+	bottom: 40px;
+}
 .right{
 	float: right;
 }
@@ -27,6 +31,9 @@ body{
 	background-color: white;
 	border-radius: 10px;
 	padding: 5px 10px;
+}
+.colle{
+	width: max-content;
 }
 .lien:hover{
 	color: black;
@@ -181,6 +188,22 @@ a.contenu{
 }
 .travaux{
 	border: 1px solid black;
+}
+.error{
+	text-align: center;
+	border: 1px solid red;
+	border-radius: 10px;
+	background-color: #FB9883;
+	color: black;
+	padding: 5px 10px;
+}
+.good{
+	text-align: center;
+	border: 1px solid green;
+	border-radius: 10px;
+	background-color: #BFF9B4;
+	color: black;
+	padding: 5px 10px;
 }
 .account{
 	margin: 100px auto;

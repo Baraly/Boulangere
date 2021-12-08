@@ -2,25 +2,48 @@
 session_start();
 include_once("bdd.php");
 
-if(isset($_POST['nbProduit'])){
-    if(!($bdd->query("select * from Commandes where email='".$_SESSION['email']."' and etat='Panier'")->fetch())){
-        $insert = $bdd->prepare("insert into Commandes values (0, :heure, :email, 'Panier')");
-        $insert->execute(array(
+if(isset($_POST['nbProduit'])) {
+    $donnees = $bdd->query("select stock from Produits where idProduit=" . $_GET['article'])->fetch();
+
+    // Cas où le client demande plus de produits que ce qu'il y a en stock
+    if ($donnees['stock'] < $_POST['nbProduit']) {
+        header("location: article.php?article=".$_GET['article']."&error=stock");
+    }
+    else if(isset($_SESSION['email'])){
+        // Cas où le client ne possède pas de Panier
+        if (!($bdd->query("select * from Commandes where email='" . $_SESSION['email'] . "' and etat='Panier'")->fetch())) {
+            $insert = $bdd->prepare("insert into Commandes values (0, :heure, :email, 'Panier')");
+            $insert->execute(array(
                 'heure' => date("Y-m-d H:i:s"),
                 'email' => $_SESSION['email']
-        ));
+            ));
+        }
+
+        $id = $bdd->query("select idCommande from Commandes where email='" . $_SESSION['email'] . "' and etat='Panier'")->fetch();
+        $prix = $bdd->query("select prix, promotion from Produits where idProduit=" . $_GET['article'])->fetch();
+        $total = ($prix['prix'] * (100 - $prix['promotion']) / 100) * $_POST['nbProduit'];
+
+        if (!($bdd->query("select * from LignesCommandes where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article'])->fetch())) {
+            $insert = $bdd->prepare("insert into LignesCommandes values (0, :idCommande, :idArticle, :nbProduit, :total)");
+            $insert->execute(array(
+                'idCommande' => $id['idCommande'],
+                'idArticle' => $_GET['article'],
+                'nbProduit' => $_POST['nbProduit'],
+                'total' => $total
+            ));
+        }
+        else {
+            $donneesPanier = $bdd->query("select montant, quantite from LignesCommandes where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article'])->fetch();
+            $montantTotal = $total + $donneesPanier['montant'];
+            $nbArticle = $_POST['nbProduit'] + $donneesPanier['quantite'];
+            $bdd->exec("update LignesCommandes set montant=" . $montantTotal . " where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article']);
+            $bdd->exec("update LignesCommandes set quantite=" . $nbArticle . " where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article']);
+        }
+        header("location: article.php?article=". $_GET['article']."&addPanier=success");
     }
-    $id = $bdd->query("select idCommande from Commandes where email='".$_SESSION['email']."' and etat='Panier'")->fetch();
-    $prix = $bdd->query("select prix, promotion from Produits where idProduit=".$_GET['article'])->fetch();
-    $total = ($prix['prix'] * (100 - $prix['promotion'])/100) * $_POST['nbProduit'];
-    $insert = $bdd->prepare("insert into LignesCommandes values (0, :idCommande, :idArticle, :nbProduit, :total)");
-    $insert->execute(array(
-            'idCommande' => $id['idCommande'],
-            'idArticle' => $_GET['article'],
-            'nbProduit' => $_POST['nbProduit'],
-            'total' => $total
-    ));
-    header("location: article.php?article=".$_GET['article']);
+    else{
+        header("location: article.php?article=".$_GET['article']."&addPanier=failed");
+    }
 }
 
 ?>
@@ -95,7 +118,7 @@ if(isset($_POST['nbProduit'])){
                                         <?php for($i = 1; $i <= 10; $i++){
                                             echo "<option>".$i."</option>";
                                         }?>
-                                        <option onclick="formAutre()">Autre</option>
+                                        <option onselect="formAutre()">Autre</option>
                                     </select><br>
                                     <div class="submit">
                                         <input type="submit" class="submit" value="Ajouter au panier"/>
@@ -107,10 +130,19 @@ if(isset($_POST['nbProduit'])){
                         </div>
                     </div>
             <?php
+            if(isset($_GET['error']) && $_GET['error'] = 'stock'){
+                echo "<center class='bottom' style='width: 95%'><h3 class='error colle'>Nous n'avons pas assez de stock pour cet article</h3></center>";
+            }
+            if(isset($_GET['addPanier']) && $_GET['addPanier'] == "success"){
+                echo "<center class='bottom' style='width: 95%'><h3 class='colle good'>Cet article a été ajouté dans votre Panier !</h3></center>";
+            }
+            if(isset($_GET['addPanier']) && $_GET['addPanier'] == "failed"){
+                echo "<center class='bottom' style='width: 95%'><h3 class='error colle'>Veuillez avoir un compte afin de pouvoir ajouter des articles dans votre Panier</h3></center>";
+            }
         }
         else{
             ?>
-            <h4>Il n'y a rien à voir ici, veuilliez retourner sur <a href="index.php">la page principale</a></h4>
+            <h4>Il n'y a rien à voir ici, veuillez retourner sur <a href="index.php">la page principale</a></h4>
             <?php
         }
     $bdd = null;
