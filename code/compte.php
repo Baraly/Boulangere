@@ -143,7 +143,7 @@
                 <h3>Bonjour <?= $_SESSION['prenom'] ?></h3><br>
                 <h5 class="underline">Récapitulatif :</h5>
                 <?php
-                    $request = $bdd->query("SELECT COUNT(*) AS nbCommande FROM Commandes WHERE email='".$_SESSION['email']."' and etat='validee'");
+                    $request = $bdd->query("SELECT COUNT(*) AS nbCommande FROM Commandes WHERE email='".$_SESSION['email']."' and etat='Validee'");
                     $donnees = $request->fetch();
                     if($donnees['nbCommande'] == 0){
                         echo "<p>Vous n'avez aucune commande en cours et";
@@ -155,7 +155,7 @@
                         echo "<p>Vous avez ".$donnees['nbCommande']." commandes en cours et";
                     }
 
-                    $request = $bdd->query("SELECT COUNT(*) AS nbCommande FROM Commandes WHERE email='".$_SESSION['email']."' and etat='enCours'");
+                    $request = $bdd->query("SELECT COUNT(*) AS nbCommande FROM Commandes WHERE email='".$_SESSION['email']."' and etat='Panier'");
                     $donnees = $request->fetch();
                     if($donnees['nbCommande'] == 0){
                         echo " aucun produit dans votre panier</p>";

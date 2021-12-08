@@ -322,3 +322,7 @@ input[type="submit"].panier{
 input[type="submit"].panier:hover{
 	box-shadow: 0 0 20px grey;
 }
+table{
+	border-collapse: separate;
+}
+

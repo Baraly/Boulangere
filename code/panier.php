@@ -66,25 +66,71 @@ if(isset($_GET['suppProd'])){
             <?php
         }
         else{
-            $request = $bdd->query("select SUM(montant) as total from Commandes, LignesCommandes where Commandes.idCommande = lignesCommandes.idCommande and Commandes.email='".$_SESSION['email']."' and etat='Panier'")->fetch();
+            $request = $bdd->query("select SUM(montant) as total, SUM(quantite) as nbProduit from Commandes, LignesCommandes where Commandes.idCommande = LignesCommandes.idCommande and Commandes.email='".$_SESSION['email']."' and etat='Panier'")->fetch();
             $total = $request['total'];
+            $nbProduit = $request['nbProduit'];
+            $promotion = "";
+
+            if(!empty($_POST['promotion'])){
+                if($_POST['promotion'] == "université"){
+                    $total = 0;
+                    $promotion .= "<h4>Votre code de promotion \"université\" a été appliqué !<br><a href='panier.php?finaliserPanier'>Finaliser ma commande</a></h4>";
+                }
+                else{
+                    $promotion .= "<h4>Ce code de promotion n'existe pas</h4>";
+                }
+            }
+
+            $donnees = $bdd->query("select * from Clients, Commandes where Clients.email = Commandes.email and Commandes.email='".$_SESSION['email']."' and etat='Panier'")->fetch();
 
             ?>
-            <div style="width: 40%">
-                <h4>Montant : <?= $total ?> EUR</h4>
-                <div id="paypal-button-container"></div>
-                <script src="https://www.paypal.com/sdk/js?client-id=AZ0vflfASgal9-8_8PQh029iFgfZecNyYImBso6fu5Qx5I_qcdUVYm6wjt07umoKI_9Sk0aegm1Qk66g"></script>
+            <div style="height: 30px"></div>
+            <table>
+                <tr class="bold"><td>Produit</td><td style="color:white">blabla</td><td>Quantité</td><td style="color:white">blabla</td><td>Prix</td></tr>
+                <?php
+                    $request = $bdd->query("select * from Commandes, LignesCommandes, Produits where Commandes.idCommande = LignesCommandes.idCommande and LignesCommandes.idProduit = Produits.idProduit and email='".$_SESSION['email']."' and etat='Panier'");
+                    while($donnees2 = $request->fetch()){
+                        ?>
+                        <tr><td><?= $donnees2['nom'] ?></td><td></td><td><?= $donnees2['quantite'] ?></td><td></td><td><?= $donnees2['montant'] ?>€</td></tr>
+                        <?php
+                    }
+                ?>
+            </table>
+            <div style="height: 30px"></div>
+            <div>
+                <div id="paypal-button-container" class="right" style="width: 30%; z-index: 1;"></div>
+                <h4>Montant : <span id="total"><?= $total ?></span> EUR</h4>
+                <p>
+                    Nombre d'articles : <?= $nbProduit ?><br>
+                    Frais de livraison : 0.00€<br>
+                    Adresse : <?= $donnees['adresse'] ?>
+                </p>
+                <script src="https://www.paypal.com/sdk/js?client-id=AWz2FJiKkeO3v1cSy7cAcG7-jMjWfNb0zrxsfSZU8p_8_pwUhEwlRWUOS690wXJzI8c4y0jsXv5vFtwX&currency=EUR"></script>
                 <script src="paypal.js"></script>
             </div>
+            <form action="panier.php?validerPanier" method="POST">
+                <label style="margin-top: 30px">Code de promotion : <input type="text" name="promotion"></label>
+                <input type="submit" value="Appliquer" class="button">
+            </form>
+            <center style="margin-top: 20px"><?= $promotion ?></center>
             <?php
         }
+    }
+    else if(isset($_GET['finaliserPanier'])){
+        $bdd->exec("update Commandes set etat='Validee' where email='".$_SESSION['email']."' and etat='Panier'");
+        ?>
+        <h4 class="good colle" style="margin-top: 30px">Envoyé !</h4>
+        <h4>Votre commande vient d'être envoyé à notre équipe ! <br>Vous pouvez voir son status dans la rubrique <span class="italic">Commandes en cours</span></h4>
+        <?php
     }
     else{
         ?>
         <a href="#" class="button right" style="font-size: 18px; margin-top: -30px">Commandes en cours</a>
         <h3 class="underline" style="margin-top: 30px">Votre panier actuel</h3>
-        <a href="panier.php?validerPanier" class="button right" style="font-size: 18px; margin-top: 30px">Valider mon Panier</a>
         <?php
+        $donnees = $bdd->query("select COUNT(*) as panier from Commandes where email='".$_SESSION['email']."' and etat='Panier'")->fetch();
+        if($donnees['panier'])
+            echo "<a href='panier.php?validerPanier' class='button right' style='font-size: 18px; margin-top: 30px'>Valider mon Panier</a>";
 
         if($id = $bdd->query("select idCommande, email, etat from Commandes where email='".$_SESSION['email']."' and etat='Panier'")->fetch()){
             $total = $bdd->query("select SUM(montant) as total from LignesCommandes, Produits where LignesCommandes.idProduit = Produits.idProduit and idCommande=".$id['idCommande'])->fetch();
@@ -136,6 +182,7 @@ if(isset($_GET['suppProd'])){
             echo "<center style='margin-top: 50px'><h4>Vous n'avez actuellement rien dans votre panier</h4></center>";
         }
     }
+    $bdd = null;
 ?>
 
 </body>
