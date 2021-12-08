@@ -43,7 +43,7 @@ body{
 h3{
 	margin-top: 10px;
 }
-h4{
+.margin{
 	margin-top: 100px;
 }
 li{
@@ -303,7 +303,6 @@ a.supprimer{
 a.supprimer:hover{
 	box-shadow: 0 0 20px red;
 }
-
 div.infoPerso{
 	width: 50%;
 	border: 1px solid black;
@@ -311,4 +310,15 @@ div.infoPerso{
 	margin: 20px 10px;
 	padding: 15px 15px;
 }
-
+.panier{
+	border: 1px solid black;
+	border-radius: 5px;
+}
+input[type="submit"].panier{
+	cursor: pointer;
+	color: white;
+	background-color: #363636;
+}
+input[type="submit"].panier:hover{
+	box-shadow: 0 0 20px grey;
+}
