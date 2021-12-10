@@ -128,6 +128,7 @@ else if(isset($_GET['annulerCommande'])){
         while($donnees = $request->fetch()){
             $bdd->exec("update Produits set stock=".($donnees['stock'] - $donnees['quantite'])." where idProduit=".$donnees['idProduit']);
         }
+        $bdd->exec("update Commandes set date_ = now() where email='".$_SESSION['email']."' and etat='Panier'");
         $bdd->exec("update Commandes set etat='Validee' where email='".$_SESSION['email']."' and etat='Panier'");
         ?>
         <h4 class="good colle" style="margin-top: 30px">Envoyé !</h4>

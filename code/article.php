@@ -12,9 +12,8 @@ if(isset($_POST['nbProduit'])) {
     else if(isset($_SESSION['email'])){
         // Cas où le client ne possède pas de Panier
         if (!($bdd->query("select * from Commandes where email='" . $_SESSION['email'] . "' and etat='Panier'")->fetch())) {
-            $insert = $bdd->prepare("insert into Commandes values (0, :heure, :email, 'Panier')");
+            $insert = $bdd->prepare("insert into Commandes values (0, now(), :email, 'Panier')");
             $insert->execute(array(
-                'heure' => date("Y-m-d H:i:s"),
                 'email' => $_SESSION['email']
             ));
         }
