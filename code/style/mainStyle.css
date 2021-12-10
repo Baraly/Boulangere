@@ -325,4 +325,41 @@ input[type="submit"].panier:hover{
 table{
 	border-collapse: separate;
 }
+.contentColor{
+	position: relative;
+	display: table;
+	margin: 5px 0;
+	padding: 2px 0;
+	text-align: center;
+	background-color: #363636;
+	color: white;
+	border-radius: 14px;
+	width: 100%;
+	z-index: 3;
+}
+.contentColor .col-sm-2, .contentColor .col-sm-3, .contentColor .col-sm-4{
+	display: table-cell;
+	vertical-align: middle;
+}
+.contentColorArticle{
+	background-color: #E3E3E3;
+	color: black;
+	width: 100%;
+	margin: 5px 0;
+	padding-bottom: 6px;
+	padding-top: 50px;
+	border-radius: 20px;
+	margin-top: -30px;
+	z-index: 1;
+}
+.bgWhite{
+	background-color: white;
+	width: 90px;
+	margin: 0 auto;
+	border-radius: 20px;
+	padding: 6px 0;
+}
+.paddingTop{
+	padding-top: 14px
+}
 

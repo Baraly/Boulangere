@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="style/styleNav.css">
 	<link rel="stylesheet" href="style/mainStyle.css">
 	<link rel="stylesheet" href="style/styleGestionArticle.css">
-	<script src="nav/nav.js"></script>
+	<script src="JavaScript/nav.js"></script>
 </head>
 <body>
 	<?php include_once("nav/nav.php"); ?>

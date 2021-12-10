@@ -3,10 +3,7 @@
 <html lang="fr">
 <head>
     <?php include_once("head/head.php"); ?>
-    <link rel="stylesheet" href="style/styleNav.css">
-    <link rel="stylesheet" href="style/mainStyle.css">
     <title>Mon compte</title>
-    <script src="nav/nav.js"></script>
 </head>
 <body>
     <?php include_once("nav/nav.php"); ?>
@@ -118,7 +115,7 @@
                     Vous pourrez toute fois vous réinscrire plus tard sur notre site.</p><br>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="compte.php" class=" button annuler">Annuler</a>
+                            <a href="compte.php" class="button annuler">Annuler</a>
                         </div>
                         <div class="col-sm-6">
                             <a href="comptePost.php?suppCompte" class="button supprimer">Supprimer</a>

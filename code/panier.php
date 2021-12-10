@@ -7,15 +7,22 @@ if(isset($_GET['suppProd'])){
         $bdd->exec("delete from Commandes where idCommande=".$_GET['idCommande']);
     }
 }
+else if(isset($_GET['annulerCommande'])){
+    $request = $bdd->query("select * from Commandes, LignesCommandes, Produits where Commandes.idCommande = LignesCommandes.idCommande and LignesCommandes.idProduit = Produits.idProduit and Commandes.idCommande=".$_GET['annulerCommande']);
+    while($donnees = $request->fetch()){
+        $bdd->exec("update Produits set stock=".($donnees['stock'] + $donnees['quantite'])." where idProduit=".$donnees['idProduit']);
+    }
+    $bdd->exec("delete from LignesCommandes where idCommande=".$_GET['annulerCommande']);
+    $bdd->exec("delete from Commandes where idCommande=".$_GET['annulerCommande']);
+    header("location: panier.php?commandesEnCours");
+}
 
 ?>
 <!doctype html>
 <html lang="fr">
 <head>
     <?php include_once("head/head.php"); ?>
-    <link rel="stylesheet" href="style/styleNav.css">
-    <link rel="stylesheet" href="style/mainStyle.css">
-    <script src="nav/nav.js"></script>
+    <title>Panier</title>
 </head>
 <body>
 <?php include_once("nav/nav.php"); ?>
@@ -106,7 +113,7 @@ if(isset($_GET['suppProd'])){
                     Adresse : <?= $donnees['adresse'] ?>
                 </p>
                 <script src="https://www.paypal.com/sdk/js?client-id=AWz2FJiKkeO3v1cSy7cAcG7-jMjWfNb0zrxsfSZU8p_8_pwUhEwlRWUOS690wXJzI8c4y0jsXv5vFtwX&currency=EUR"></script>
-                <script src="paypal.js"></script>
+                <script src="JavaScript/paypal.js"></script>
             </div>
             <form action="panier.php?validerPanier" method="POST">
                 <label style="margin-top: 30px">Code de promotion : <input type="text" name="promotion"></label>
@@ -117,15 +124,85 @@ if(isset($_GET['suppProd'])){
         }
     }
     else if(isset($_GET['finaliserPanier'])){
+        $request = $bdd->query("select * from Commandes, LignesCommandes, Produits where Commandes.idCommande = LignesCommandes.idCommande and LignesCommandes.idProduit = Produits.idProduit and email='".$_SESSION['email']."' and etat='Panier';");
+        while($donnees = $request->fetch()){
+            $bdd->exec("update Produits set stock=".($donnees['stock'] - $donnees['quantite'])." where idProduit=".$donnees['idProduit']);
+        }
         $bdd->exec("update Commandes set etat='Validee' where email='".$_SESSION['email']."' and etat='Panier'");
         ?>
         <h4 class="good colle" style="margin-top: 30px">Envoyé !</h4>
         <h4>Votre commande vient d'être envoyé à notre équipe ! <br>Vous pouvez voir son status dans la rubrique <span class="italic">Commandes en cours</span></h4>
         <?php
     }
+    else if(isset($_GET['commandesEnCours'])){
+        $donnees = $bdd->query("select COUNT(*) as  nbCommande from Commandes where email='".$_SESSION['email']."' and etat='Validee'")->fetch();
+        if($donnees['nbCommande']){
+            $request1 = $bdd->query("select * from Commandes where email='".$_SESSION['email']."' and etat='Validee'");
+            $compteur = 1;
+            while($donnees1 = $request1->fetch()){
+                $donneesSupp = $bdd->query("select SUM(quantite) as nbArticle, SUM(montant) as total from Commandes, LignesCommandes where Commandes.idCommande = LignesCommandes.idCommande and Commandes.idCommande=".$donnees1['idCommande'])->fetch();
+                ?>
+                <div class="row contentColor">
+                    <div class="col-sm-4 centre">
+                        <h5>Commandé le : <?= date('d M Y', strtotime($donnees1['date_'])) ?><br>
+                        Statut : En cours de préparation</h5>
+                    </div>
+                    <div class="col-sm-3 centre">
+                        <h5>Nombre d'articles : <?= $donneesSupp['nbArticle'] ?><br>
+                            Total : <?= $donneesSupp['total'] ?> €</h5>
+                    </div>
+                    <div class="col-sm-2 centre">
+                        <a href="#" class="lien" onclick="afficheListeArticle(<?= $compteur ?>)">Voir les articles</a>
+                    </div>
+                    <div class="col-sm-3 centre">
+                        <a <?= "href='panier.php?&annulerCommande=".$donnees1['idCommande']."'" ?> class="lien">Annuler la commande</a>
+                    </div>
+                </div>
+                <div <?= "id='article".$compteur."'" ?> style="display: none" class="contentColorArticle">
+                <?php
+                $request2 = $bdd->query("select * from Commandes, LignesCommandes, Produits where Commandes.idCommande = LignesCommandes.idCommande and LignesCommandes.idProduit = Produits.idProduit and Commandes.idCommande=".$donnees1['idCommande']);
+                while($donnees2 = $request2->fetch()){
+                    ?>
+                        <div  class="row">
+                            <div class="col-sm-2 centre">
+                                <div class="bgWhite">
+                                    <img <?= "src=../donnees/img/".$donnees2['photo']; ?> style="height: 50px"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 centre paddingTop">
+                                <h5><?= $donnees2['nom']; ?></h5>
+                            </div>
+                            <div class="col-sm-3 centre paddingTop">
+                                <h5>Quantité : <?= $donnees2['quantite'] ?></h5>
+                            </div>
+                            <div class="col-sm-3 centre paddingTop">
+                                <h5>Prix à l'unité : <?= $donnees2['prix'] ?>€
+                                <?php
+                                if($donnees2['promotion'] != 0)
+                                    echo "<br>Promotion : ".$donnees2['promotion']."%";
+                                ?>
+                                </h5>
+                            </div>
+                            <div class="col-sm-2 centre paddingTop">
+                                <a <?= "href='article.php?article=".$donnees2['idProduit']."'" ?> style="font-size: 18px"><p>Plus d'informations</p></a>
+                            </div>
+                        </div>
+                    <p></p>
+                    <?php
+                }
+                echo "</div>";
+                $compteur++;
+                echo "<hr>";
+            }
+            echo "<script src='JavaScript/commandeArticle.js'></script>";
+        }
+        else{
+            echo "<center style='margin-top: 50px'><h4>Vous n'avez aucune commande en cours</h4></center>";
+        }
+    }
     else{
         ?>
-        <a href="#" class="button right" style="font-size: 18px; margin-top: -30px">Commandes en cours</a>
+        <a href="panier.php?commandesEnCours" class="button right" style="font-size: 18px; margin-top: -30px">Commandes en cours</a>
         <h3 class="underline" style="margin-top: 30px">Votre panier actuel</h3>
         <?php
         $donnees = $bdd->query("select COUNT(*) as panier from Commandes where email='".$_SESSION['email']."' and etat='Panier'")->fetch();
