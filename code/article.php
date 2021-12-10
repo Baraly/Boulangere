@@ -3,10 +3,16 @@ session_start();
 include_once("bdd.php");
 
 if(isset($_POST['nbProduit'])) {
+    $nbProduit = 0;
+    if(isset($_POST['grosNombre']))
+        $nbProduit = $_POST['grosNombre'];
+    else
+        $nbProduit = $_POST['nbProduit'];
+
     $donnees = $bdd->query("select stock from Produits where idProduit=" . $_GET['article'])->fetch();
 
     // Cas où le client demande plus de produits que ce qu'il y a en stock
-    if ($donnees['stock'] < $_POST['nbProduit']) {
+    if ($donnees['stock'] < $nbProduit) {
         header("location: article.php?article=".$_GET['article']."&error=stock");
     }
     else if(isset($_SESSION['email'])){
@@ -20,21 +26,21 @@ if(isset($_POST['nbProduit'])) {
 
         $id = $bdd->query("select idCommande from Commandes where email='" . $_SESSION['email'] . "' and etat='Panier'")->fetch();
         $prix = $bdd->query("select prix, promotion from Produits where idProduit=" . $_GET['article'])->fetch();
-        $total = ($prix['prix'] * (100 - $prix['promotion']) / 100) * $_POST['nbProduit'];
+        $total = ($prix['prix'] * (100 - $prix['promotion']) / 100) * $nbProduit;
 
         if (!($bdd->query("select * from LignesCommandes where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article'])->fetch())) {
             $insert = $bdd->prepare("insert into LignesCommandes values (0, :idCommande, :idArticle, :nbProduit, :total)");
             $insert->execute(array(
                 'idCommande' => $id['idCommande'],
                 'idArticle' => $_GET['article'],
-                'nbProduit' => $_POST['nbProduit'],
+                'nbProduit' => $nbProduit,
                 'total' => $total
             ));
         }
         else {
             $donneesPanier = $bdd->query("select montant, quantite from LignesCommandes where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article'])->fetch();
             $montantTotal = $total + $donneesPanier['montant'];
-            $nbArticle = $_POST['nbProduit'] + $donneesPanier['quantite'];
+            $nbArticle = $nbProduit + $donneesPanier['quantite'];
             $bdd->exec("update LignesCommandes set montant=" . $montantTotal . " where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article']);
             $bdd->exec("update LignesCommandes set quantite=" . $nbArticle . " where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article']);
         }
@@ -83,7 +89,7 @@ if(isset($_POST['nbProduit'])) {
                             <div class="bandeauPrix">
                                 <div class="row">
                                     <div class="col-sm-5"><h4>Prix</h4></div>
-                                    <div class="col-sm-7"><p class="bold" style="font-size: 20px"><?= $donnees['prix']; ?>€</p></div>
+                                    <p class="bold" style="font-size: 20px"><?= $donnees['prix']; ?>€</p>
                                 </div>
 
                                 <?php if($donnees['promotion'] != 0){
@@ -110,12 +116,13 @@ if(isset($_POST['nbProduit'])) {
                                 <p>Livraison : 3-4 jours</p>
                                 <?php $url = "article.php?article=".$_GET['article']; ?>
                                 <form action=<?= $url ?> method="POST">
-                                    <select name="nbProduit">
+                                    <select name="nbProduit"  id="autre">
                                         <?php for($i = 1; $i <= 10; $i++){
                                             echo "<option>".$i."</option>";
                                         }?>
-                                        <option onselect="formAutre()">Autre</option>
-                                    </select><br>
+                                        <option>Autre</option>
+                                    </select>
+                                    <input id="input" type="number" name="grosNombre" placeholder="Quantité" required style="display: none; width: 70%; margin: 10px 10px"><br>
                                     <div class="submit">
                                         <input type="submit" class="submit" value="Ajouter au panier"/>
                                     </div>
@@ -145,9 +152,13 @@ if(isset($_POST['nbProduit'])) {
     ?>
 
 <script>
-    function formAutre(){
-        console.log("Vous avez sélectionné la catégorie 'Autre'");
-    }
+    document.getElementById('autre').addEventListener("change", function(event){ // on regarde les changements sur le sélecteur
+        if(document.getElementById('autre').value == "Autre"){
+            document.getElementById("input").style.display = "inline";
+        }
+        else
+            document.getElementById("input").style.display = "none";
+    });
 </script>
 
 </body>
