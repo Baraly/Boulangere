@@ -4,7 +4,7 @@ include_once("bdd.php");
 
 if(isset($_POST['nbProduit'])) {
     $nbProduit = 0;
-    if(isset($_POST['grosNombre']))
+    if(!empty($_POST['grosNombre']))
         $nbProduit = $_POST['grosNombre'];
     else
         $nbProduit = $_POST['nbProduit'];
@@ -122,7 +122,7 @@ if(isset($_POST['nbProduit'])) {
                                         }?>
                                         <option>Autre</option>
                                     </select>
-                                    <input id="input" type="number" name="grosNombre" placeholder="Quantité" required style="display: none; width: 70%; margin: 10px 10px"><br>
+                                    <input id="input" type="number" name="grosNombre" placeholder="Quantité" style="display: none; width: 70%; margin: 10px 10px"><br>
                                     <div class="submit">
                                         <input type="submit" class="submit" value="Ajouter au panier"/>
                                     </div>
