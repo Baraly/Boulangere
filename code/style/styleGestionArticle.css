@@ -1,6 +1,5 @@
 div.listeActionArticle{
 	border: 1px solid black;
-	/*width: 280px;*/
 	width: 24%;
 	border-radius: 10px;
 	height: 200px;
@@ -22,7 +21,6 @@ a:hover{
 	padding: 2px 5px;
 	border-radius: 5px;
 }
-
 div.renduGestion{
 	float: right;
 	margin-top: -200px;
