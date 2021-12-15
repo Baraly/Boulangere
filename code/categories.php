@@ -34,7 +34,9 @@
             <h4 class="nomType"><?= ucwords($donnees['categorie']) ?></h4>
         </div>
     </a>
-    <?php } ?>
+    <?php }
+    $bdd = null;
+    ?>
 </div>
 </body>
 </html>
