@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21f54431-b717-4408-a1c1-b2bad87f8254" name="Changes" comment="création du fichier categories.php">
-      <change beforePath="$PROJECT_DIR$/code/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/categories.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/donnees/img/imprimante0.png" beforeDir="false" afterPath="$PROJECT_DIR$/donnees/img/imprimante0.png" afterDir="false" />
+    <list default="true" id="21f54431-b717-4408-a1c1-b2bad87f8254" name="Changes" comment="ajout photos articles">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/panier.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/panier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/style/mainStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/code/style/mainStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +99,9 @@
       <workItem from="1639171540501" duration="606000" />
       <workItem from="1639213690626" duration="7366000" />
       <workItem from="1639401644553" duration="1204000" />
+      <workItem from="1639610808625" duration="98000" />
+      <workItem from="1639610923295" duration="370000" />
+      <workItem from="1639669972026" duration="2524000" />
     </task>
     <task id="LOCAL-00001" summary="font-office Compte.php">
       <created>1637876260073</created>
@@ -337,7 +341,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639228615255</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="ajout photos articles">
+      <created>1639610832232</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1639610832232</updated>
+    </task>
+    <task id="LOCAL-00036" summary="ajout photos articles">
+      <created>1639610875906</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1639610875906</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,7 +373,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="correction bugs 2" />
     <MESSAGE value="correction bugs 3" />
     <MESSAGE value="correction bugs 4 (qaund y'en a plus, il en a encore)" />
     <MESSAGE value="correction bugs 4 (quand y'en a plus, il en a encore)" />
@@ -380,6 +397,7 @@
     <MESSAGE value="prb heure locale" />
     <MESSAGE value="paufinage article.php" />
     <MESSAGE value="création du fichier categories.php" />
-    <option name="LAST_COMMIT_MESSAGE" value="création du fichier categories.php" />
+    <MESSAGE value="ajout photos articles" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout photos articles" />
   </component>
 </project>

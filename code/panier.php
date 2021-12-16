@@ -92,18 +92,6 @@ else if(isset($_GET['annulerCommande'])){
 
             ?>
             <div style="height: 30px"></div>
-            <table>
-                <tr class="bold"><td>Produit</td><td style="color:white">blabla</td><td>Quantité</td><td style="color:white">blabla</td><td>Prix</td></tr>
-                <?php
-                    $request = $bdd->query("select * from Commandes, LignesCommandes, Produits where Commandes.idCommande = LignesCommandes.idCommande and LignesCommandes.idProduit = Produits.idProduit and email='".$_SESSION['email']."' and etat='Panier'");
-                    while($donnees2 = $request->fetch()){
-                        ?>
-                        <tr><td><?= $donnees2['nom'] ?></td><td></td><td><?= $donnees2['quantite'] ?></td><td></td><td><?= $donnees2['montant'] ?>€</td></tr>
-                        <?php
-                    }
-                ?>
-            </table>
-            <div style="height: 30px"></div>
             <div>
                 <div id="paypal-button-container" class="right" style="width: 30%; z-index: 1;"></div>
                 <h4>Montant : <span id="total"><?= $total ?></span> EUR</h4>
@@ -112,14 +100,27 @@ else if(isset($_GET['annulerCommande'])){
                     Frais de livraison : 0.00€<br>
                     Adresse : <?= $donnees['adresse'] ?>
                 </p>
+                <form action="panier.php?validerPanier" method="POST">
+                    <label style="margin-top: 10px">Code de promotion : <input type="text" name="promotion"></label>
+                    <input type="submit" value="Appliquer" class="button">
+                </form>
+
                 <script src="https://www.paypal.com/sdk/js?client-id=AWz2FJiKkeO3v1cSy7cAcG7-jMjWfNb0zrxsfSZU8p_8_pwUhEwlRWUOS690wXJzI8c4y0jsXv5vFtwX&currency=EUR"></script>
                 <script src="JavaScript/paypal.js"></script>
+                <div style="height: 30px"></div>
+                <center><?= $promotion ?></center>
+                <table>
+                    <tr class="bold"><td>Produit</td><td style="color:white">blabla</td><td>Quantité</td><td style="color:white">blabla</td><td>Prix</td><td style="color:white">blabla</td><td>Promotion</td></tr>
+                    <?php
+                    $request = $bdd->query("select * from Commandes, LignesCommandes, Produits where Commandes.idCommande = LignesCommandes.idCommande and LignesCommandes.idProduit = Produits.idProduit and email='".$_SESSION['email']."' and etat='Panier'");
+                    while($donnees2 = $request->fetch()){
+                        ?>
+                        <tr><td><?= $donnees2['nom'] ?></td><td></td><td class="centre"><?= $donnees2['quantite'] ?></td><td></td><td class="centre"><?= $donnees2['montant'] ?>€</td><td></td><td class="centre"><?php if($donnees2['promotion'] != 0){ echo "-".$donnees2['promotion']."%";}else{ echo "/";} ?></td></tr>
+                        <?php
+                    }
+                    ?>
+                </table>
             </div>
-            <form action="panier.php?validerPanier" method="POST">
-                <label style="margin-top: 30px">Code de promotion : <input type="text" name="promotion"></label>
-                <input type="submit" value="Appliquer" class="button">
-            </form>
-            <center style="margin-top: 20px"><?= $promotion ?></center>
             <?php
         }
     }
