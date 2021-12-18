@@ -89,10 +89,8 @@ img.recherche{
 	background-color: #363636;
 }
 .bandeauPrix input.submit:hover{
-	background-color: white;
-	color: black;
 	text-decoration: none;
-	box-shadow: 0 0 8px gray;
+	box-shadow: 0 0 16px black;
 }
 .bandeauPrix .espace{
 	text-align: center;

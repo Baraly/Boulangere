@@ -2,7 +2,7 @@
 	<div class="cacherText"></div>
 		<div class="row nav">
 			<div class="col-sm-3">
-				<a href="index.php"><div  class="logo"><img src="../donnees/img/logo.jpg" alt="boulangère" style="width: 70%"></div></a>
+				<a href="index.php"><div  class="logo"><img src="../donnees/img/logo.jpg" alt="boulangère" style="height: 90%"></div></a>
 			</div>
 			<div class="col-sm-2 barre">
 				<p><a href="categories.php" class="animation">Catégories<i class='bx bxs-category'></i></a></p>

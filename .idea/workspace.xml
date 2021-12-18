@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21f54431-b717-4408-a1c1-b2bad87f8254" name="Changes" comment="MàJ">
+    <list default="true" id="21f54431-b717-4408-a1c1-b2bad87f8254" name="Changes" comment="logo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/gestionArticle.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/article.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/article.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/comptePost.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/comptePost.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/nav/nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/nav/nav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/style/styleGestionArticle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/style/styleNav.css" beforeDir="false" afterPath="$PROJECT_DIR$/code/style/styleNav.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/style/mainStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/code/style/mainStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pattern.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +112,10 @@
       <workItem from="1639610923295" duration="370000" />
       <workItem from="1639669972026" duration="2577000" />
       <workItem from="1639733668916" duration="811000" />
-      <workItem from="1639735056610" duration="680000" />
+      <workItem from="1639735056610" duration="790000" />
+      <workItem from="1639737796425" duration="2912000" />
+      <workItem from="1639760034840" duration="52000" />
+      <workItem from="1639819129079" duration="2116000" />
     </task>
     <task id="LOCAL-00001" summary="font-office Compte.php">
       <created>1637876260073</created>
@@ -372,7 +376,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639673160259</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="logo">
+      <created>1639735838076</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1639735838076</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,7 +401,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="correction bugs 3" />
     <MESSAGE value="correction bugs 4 (qaund y'en a plus, il en a encore)" />
     <MESSAGE value="correction bugs 4 (quand y'en a plus, il en a encore)" />
     <MESSAGE value="correction bugs 5 (quand y'en a plus, il en a encore)" />
@@ -415,6 +425,7 @@
     <MESSAGE value="création du fichier categories.php" />
     <MESSAGE value="ajout photos articles" />
     <MESSAGE value="MàJ" />
-    <option name="LAST_COMMIT_MESSAGE" value="MàJ" />
+    <MESSAGE value="logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="logo" />
   </component>
 </project>
