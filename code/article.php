@@ -26,7 +26,7 @@ if(isset($_POST['nbProduit'])) {
 
         $id = $bdd->query("select idCommande from Commandes where email='" . $_SESSION['email'] . "' and etat='Panier'")->fetch();
         $prix = $bdd->query("select prix, promotion from Produits where idProduit=" . $_GET['article'])->fetch();
-        $total = ($prix['prix'] * (100 - $prix['promotion']) / 100) * $nbProduit;
+        $total = ($prix['prix'] * (100 - $prix['promotion']) / 100.0) * $nbProduit;
 
         if (!($bdd->query("select * from LignesCommandes where idCommande=" . $id['idCommande'] . " and idProduit=" . $_GET['article'])->fetch())) {
             $insert = $bdd->prepare("insert into LignesCommandes values (0, :idCommande, :idArticle, :nbProduit, :total)");

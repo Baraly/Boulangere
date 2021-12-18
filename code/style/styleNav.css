@@ -100,5 +100,13 @@ div.cacherText{
 	border-radius: 10px;
 	background-image: url(../../donnees/img/bx-send.svg);
 }
-
+.logo{
+	margin-top: 10px;
+	margin-left: 10%;
+	border: 1px solid white;
+	width: 80%;
+	height: 30px;
+	background-color: white;
+	border-radius: 10px;
+}
 

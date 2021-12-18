@@ -89,10 +89,8 @@ img.recherche{
 	background-color: #363636;
 }
 .bandeauPrix input.submit:hover{
-	background-color: white;
-	color: black;
 	text-decoration: none;
-	box-shadow: 0 0 8px gray;
+	box-shadow: 0 0 16px black;
 }
 .bandeauPrix .espace{
 	text-align: center;
@@ -323,7 +321,10 @@ input[type="submit"].panier:hover{
 	box-shadow: 0 0 20px grey;
 }
 table{
-	border-collapse: separate;
+	border-collapse: collapse;
+}
+tr:nth-child(even){
+	background-color: #dddddd;
 }
 .contentColor{
 	position: relative;
@@ -366,7 +367,7 @@ table{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-	width: 93%;
+	width: 100%;
 	border: 1px solid black;
 	padding: 10px 10px;
 }
